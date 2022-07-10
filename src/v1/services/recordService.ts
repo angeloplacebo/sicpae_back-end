@@ -9,6 +9,18 @@ interface RecordParams {
   t_out: number
 }
 
+interface RecordData {
+  c_in: number,
+  h_in: number,
+  h_out: number,
+  t_in: number,
+  t_out: number
+}
+
+interface PageOptions {
+  page: number,
+  limit: number
+}
 const recordService = {
 
   async create(recordParams: RecordParams){
