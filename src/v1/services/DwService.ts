@@ -14,6 +14,13 @@ const DwRecordDayService = {
     Object.keys(day_params).forEach((key)=>{
       day_params[key] ||= -1
     })
+
+    let existing_data = await this.getByDate(day_params.date)
+    if (existing_data) {
+      console.log("deleting existing data "+existing_data._id)
+      await DwRecordDay.deleteOne({_id: existing_data._id})
+    }
+
     let dw_record = await DwRecordDay.create(day_params)
     return dw_record
   },
