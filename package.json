@@ -6,7 +6,8 @@
   "author": "Angelo J F Souza",
   "license": "ISC",
   "scripts": {
-    "dev": "ts-node-dev src/v1/server.ts"
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/v1/server.ts",
+    "dev_auth": "ts-node-dev --transpile-only --ignore-watch node_modules src/v1/authServer.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
