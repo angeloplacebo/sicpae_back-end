@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import User from '../models/user';
 
 import recordService from '../services/recordService';
 
@@ -13,10 +14,18 @@ const RecordController = {
 
   async create(req: Request, res: Response){
     try {
+      let user = await User.findOne({id: req.access.id}).select('+admin')
+      if (!user.admin)
+        return res.status(401).send({ error: true, message: 'unauthorized action for this user'})
+
       let records = await recordService.create(req.body)
+
+      if (records._message)
+        throw records._message
+
       return res.status(201).json(records)
     }catch (err) {
-      return err
+      return res.status(500).send({error: true, message: err})
     }
   },
 
