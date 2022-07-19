@@ -16,7 +16,7 @@ const RecordController = {
     try {
       let user = await User.findOne({id: req.access.id}).select('+admin')
       if (!user.admin)
-        return res.status(401).send({ error: true, message: 'unauthorized action for this user'})
+        return res.status(401).send({ error: 'unauthorized action for this user'})
 
       let records = await recordService.create(req.body)
 
