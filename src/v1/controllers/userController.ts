@@ -71,12 +71,9 @@ const UserController = {
     
     const token = req.body.token
 
-    console.log(token)
     if (!token) return res.sendStatus(401)
 
     let tokenExists = await RefreshToken.findOne({token})
-
-    console.log(tokenExists)
 
     if (!tokenExists || !tokenExists.active)
       return res.sendStatus(403)
@@ -95,12 +92,8 @@ const UserController = {
     
     const token = req.body.token
 
-    let tokenExists = await RefreshToken.findOne({token})
-
-    if (tokenExists){
-      tokenExists.active = false
-      tokenExists.save()
-    }
+    if (token)
+      await RefreshToken.findOneAndDelete({token})
     
     return res.sendStatus(204)
 
